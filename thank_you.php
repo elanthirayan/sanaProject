@@ -61,26 +61,18 @@
 
     <div class="container">
 		<div class="row">
-			<div class="col-md-12 col-sm-12 col-xs-12">	
-				<div class="category-name">Yuvraj Singh's six 6s in an over.</div>
-				<hr class="br-grey mt-5"></hr>
-			</div>
-			<div class="col-md-5 col-sm-6 col-xs-12">
-				<video width="320" height="240" controls>
-					<source src="https://www.youtube.com/watch?v=dwH34mR6ZG8" type="video/mp4">
-					<source src="movie.ogg" type="video/ogg">
-					Your browser does not support the video tag.
-				</video>
-				
-			<!--	https://www.youtube.com/watch?v=dwH34mR6ZG8		-->
-			</div>
-			<div class="col-md-7 col-sm-6 col-xs-12">
-				<div class="text-head">
-					Indian batsman Yuvraj Singh is known to be one of the most flamboyant cricketers in the modern era. Yuvraj went all guns blazing when he sent Stuart Broad for six ruthless maximums in an over during the World T20 in 2007 against England. A somewhat ugly spat with Andrew Flintoff in that very game spurred Yuvi on as he dispatched the England fast bowler to almost all corners of the park.
-					<br/>
-					Yuvraj amazed cricketing fans worldwide with his six sixes in an over as he became the second batsman in international cricket and the fourth overall to reach this feat. India went on to win the World T20 that year thanks to some other similarly brilliant knocks by Yuvi.
+			<div class="col-md-12 col-sm-12 col-xs-12 text-center mt-10">	
+				<div class="mt-30">		
+					<h1 style="color: #28A528;" >Thank You! <i class="fa fa-check-circle-o"></i></h1>
+				</div>
+				<div class="mt-30">	
+					<div class="text-head">
+						Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</br></br>
+						Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+					</div>
 				</div>
 			</div>
+			
 		</div>
       
     </div> <!-- /container -->
