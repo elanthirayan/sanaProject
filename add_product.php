@@ -4,53 +4,110 @@
 	if($_SESSION['userLogin'] != 'LoggedIn'){
 		header('Location: login.php');
 	}
-   if(isset($_FILES['image'])){
-		  $headLine = $description = $imageLink = "";
-
-		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-		  $headLine = $_POST["name_headLine"];
-		  $description = $_POST["description"];
-		}
-      $errors= array();
-      $file_name = $_FILES['image']['name'];
-      $file_size =$_FILES['image']['size'];
-      $file_tmp =$_FILES['image']['tmp_name'];
-      $file_type=$_FILES['image']['type'];
-	  $img_name = explode('.',$_FILES['image']['name']);
-      $file_ext=strtolower(end($img_name));
-      
-      $expensions= array("jpeg","jpg","png");
-      
-      if(in_array($file_ext,$expensions)=== false){
-         $errors[]="extension not allowed, please choose a JPEG or PNG file.";
-      }
-      
-      if($file_size > 2097152){
-         $errors[]='File size must be excately 2 MB';
-      }
-      if(empty($errors)==true){
-         move_uploaded_file($file_tmp,"images/".$file_name);
-			$i=0;
-			if (!$link = mysqli_connect('localhost:3306', 'root', '','product')) {
+	 if (!$link = mysqli_connect('localhost:3306', 'root', '','project')) {
 				echo 'Could not connect to mysql';
 			}
-			$imageLink=$file_name;
-			$sql    = "insert into tbl_news(id,headline,description,imagelink,dateTime) values(uuid(),'".$headLine."','".$description."','".$imageLink."',now());";
+			$sql    = "select * from tbl_product;";
+			$result = mysqli_query($link,$sql);
+			$row=mysqli_fetch_assoc($result);
+			var_dump($row);
+	if(isset($_POST['add_product'])){
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+		  $product_name = $_POST["product_name"];
+		  $short_description = $_POST["short_description"];
+		  $category = $_POST["category"];
+		  $full_description = $_POST["full_description"];
+		  $imageUrl = '';
+		  $videoUrl = '';
+		  $dp_imageUrl = '';
+		  if(isset($_FILES['image'])){
+			   $errors= array();
+			  $file_name = $_FILES['image']['name'];
+			  $file_size =$_FILES['image']['size'];
+			  $file_tmp =$_FILES['image']['tmp_name'];
+			  $file_type=$_FILES['image']['type'];
+			  $img_name = explode('.',$_FILES['image']['name']);
+			  $file_ext=strtolower(end($img_name));
+			  $expensions= array("jpeg","jpg","png");
+			  
+			  if(in_array($file_ext,$expensions)=== false){
+				 $errors[]="extension not allowed, please choose a JPEG or PNG file.";
+			  }
+			  
+			  if($file_size > 20097152){
+				 $errors[]='File size must be excately 2 MB';
+			  }
+			  if(empty($errors)==true){
+				 move_uploaded_file($file_tmp,"images/".$file_name);
+				 $imageUrl = $file_name;
+			  }else{
+				  echo "Image Not Uploaded";
+			  }
+		  }
+		  if(isset($_FILES['dp_image'])){
+			   $errors= array();
+			  $file_name = $_FILES['dp_image']['name'];
+			  $file_size =$_FILES['dp_image']['size'];
+			  $file_tmp =$_FILES['dp_image']['tmp_name'];
+			  $file_type=$_FILES['dp_image']['type'];
+			  $img_name = explode('.',$_FILES['dp_image']['name']);
+			  $file_ext=strtolower(end($img_name));
+			  $expensions= array("jpeg","jpg","png");
+			  
+			  if(in_array($file_ext,$expensions)=== false){
+				 $errors[]="extension not allowed, please choose a JPEG or PNG file.";
+			  }
+			  
+			  if($file_size > 20097152){
+				 $errors[]='File size must be excately 20 MB';
+			  }
+			  if(empty($errors)==true){
+				 move_uploaded_file($file_tmp,"images/".$file_name);
+				 $dp_imageUrl = $file_name;
+			  }else{
+				  echo "Image Not Uploaded";
+			  }
+		  }
+		  if(isset($_FILES['video'])){
+			   $errors= array();
+			  $file_name = $_FILES['video']['name'];
+			  $file_size =$_FILES['video']['size'];
+			  $file_tmp =$_FILES['video']['tmp_name'];
+			  $file_type=$_FILES['video']['type'];
+			  $img_name = explode('.',$_FILES['video']['name']);
+			  $file_ext=strtolower(end($img_name));
+			  $extensions= array("mp4","mpeg","3gp");
+			  
+			  if(in_array($file_ext,$extensions)=== false){
+				 $errors[]="extension not allowed, please choose a mp4 or 3gp file.";
+			  }
+			  
+			  if($file_size > 20097152){
+				 $errors[]='File size must be excately 2 MB';
+			  }
+			  if(empty($errors)==true){
+				 move_uploaded_file($file_tmp,"video/".$file_name);
+				 $videoUrl = $file_name;
+			  }else{
+				  echo "Video Not Uploaded";
+			  }
+		  }
+		  if (!$link = mysqli_connect('localhost:3306', 'root', '','project')) {
+				echo 'Could not connect to mysql';
+			}
+			$sql    = "insert into tbl_product(product_id,product_name,product_short_desc,product_full_desc,image_url,dp_imageUrl,video_url,category_id) values(uuid(),'".$product_name."','".$short_description."','".$full_description."','".$imageUrl."','".$dp_imageUrl."','".$videoUrl."','".$category."');";
 			$result = mysqli_query($link,$sql);
 
 			if (!$result) {
 				echo "DB Error, could not query the database\n";
 				echo 'MySQL Error: ' . mysqli_error();
 			}else{
-				$i=1;
-				echo "<script>alert('Published Successfully');</script>";
+				echo "<script>alert('Added Successfully');</script>";
 				header('Refresh: 10; Location: '.$_SERVER['PHP_SELF']);
 			}
-         
-      }else{
-         print_r($errors);
-      }
-   }
+		}
+	}
+
 ?>
 <html>
 <head>
@@ -78,13 +135,34 @@
 							<form class="form-horizontal" action="" enctype="multipart/form-data" role="form"  method="POST">
 								<input type="hidden" value="0" name="submit_type" id="submit_type"/>
 								<small class="pull-right">Fields marked with <span class="form-man">*</span> are mandatory</small><br/>
+								<div class="form-group" id="title_parameters_name">
+									<label for="parameters" class="col-md-2 control-label">
+										Category<span class="form-man">*</span>
+									</label>
+									<div class="col-md-8">
+										<select style="width:100%;" name="category" required>
+										<?php 
+										
+											if (!$link = mysqli_connect('localhost:3306', 'root', '','project')) {
+												echo 'Could not connect to mysql';
+											}
+											$sql    = "select category_id,category_name from tbl_categories;";
+											$result = mysqli_query($link,$sql);
+											while($row = mysqli_fetch_assoc($result)) {
+												echo "<option value='".$row['category_id']."'>".$row['category_name']."</option>";
+											}
+											mysqli_close();
+										?>
+											
+										</select>
+									</div>
+								</div>
 								<div class="form-group" id="title_email_template_name">
 									<label for="email_template" class="col-md-2 control-label">
 										Product Name<span class="form-man">*</span>
 									</label>
 									<div class="col-md-8">
-										<input type="text" class="form-control entity-form" name="name_headLine" required/>
-										<div class="text-danger" id="email_template_name_error"></div>
+										<input type="text" class="form-control entity-form" name="product_name" required/>
 									</div>
 								</div>
 								<div class="form-group" id="title_email_body_name">
@@ -98,7 +176,7 @@
 								</div>
 								<div class="form-group" id="title_email_body_name">
 									<label for="email_body" class="col-md-2 control-label">
-										Full Description <span class="form-man">*</span>
+										Detail Description <span class="form-man">*</span>
 									</label>
 									<div class="col-md-8">
 										<textarea type="text" rows="5" class="form-control entity-form" name="full_description" id="full_description" required></textarea>
@@ -107,10 +185,18 @@
 								</div>
 								<div class="form-group" id="title_parameters_name">
 									<label for="parameters" class="col-md-2 control-label">
-										Image File<span class="form-man">*</span>
+										Cover Image<span class="form-man">*</span>
 									</label>
 									<div class="col-md-8">
 										<input type="file" class="form-control entity-form" name="image" id="image" required/>
+									</div>
+								</div>
+								<div class="form-group" id="title_parameters_name">
+									<label for="parameters" class="col-md-2 control-label">
+										Detail Page Image<span class="form-man">*</span>
+									</label>
+									<div class="col-md-8">
+										<input type="file" class="form-control entity-form" name="dp_image" id="dp_image" required/>
 									</div>
 								</div>
 								<div class="form-group" id="title_parameters_name">
@@ -123,31 +209,10 @@
 								</div>
 								<div class="form-group" id="title_parameters_name">
 									<label for="parameters" class="col-md-2 control-label">
-										Category<span class="form-man">*</span>
-									</label>
-									<div class="col-md-8">
-										<select name="category" required>
-										<?php 
-										
-											if (!$link = mysqli_connect('localhost:3306', 'root', '','project')) {
-												echo 'Could not connect to mysql';
-											}
-											$sql    = "select category_id,category_name from tbl_categories;";
-											$result = mysqli_query($link,$sql);
-											while($row = mysqli_fetch_assoc($result)) {
-												echo "<option value='".$row['category_id']."'>".$row['category_name']."</option>";
-											}
-										?>
-											
-										</select>
-									</div>
-								</div>
-								<div class="form-group" id="title_parameters_name">
-									<label for="parameters" class="col-md-2 control-label">
 									
 									</label>
 									<div class="col-md-8">
-										<input type="submit" class="form-control entity-form btn btn-submit" name="submitButton" value="Add Product"/>
+										<input type="submit" class="form-control entity-form btn btn-submit" name="add_product" value="Add Product"/>
 									</div>
 								</div>
 								
