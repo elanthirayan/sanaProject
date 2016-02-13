@@ -47,7 +47,7 @@ while($row = mysqli_fetch_assoc($result)) {
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#"><img src="http://www.skilladda.com/assets/images/skilladda_logo180.png" style="width:110px;" /></a>
+				<a class="navbar-brand" href="index.php"><img src="http://www.skilladda.com/assets/images/skilladda_logo180.png" style="width:110px;" /></a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
 				<ul class="nav navbar-nav">
@@ -82,14 +82,24 @@ while($row = mysqli_fetch_assoc($result)) {
 				<hr class="br-grey mt-5"></hr>
 			</div>
 			<div class="col-md-5 col-sm-6 col-xs-12">
-				<img src="images/pic1.jpg" class="product-img mb-10" style="height:auto" />
+				<?php 
+					if(isset($dp_imageUrl)){
+						?>
+						<img src="images/<?php echo $dp_imageUrl; ?>" class="product-img mb-10" style="height:auto" />
+					<?php
+					}else{
+				?>
+				
 				<video class="mb-10" style="width:100%; height:auto;" controls>
 					<source src="<?php echo "video/".$video_url;?>" type="video/mp4">
 					Your browser does not support the video tag.
 				</video>
+				<?php 
+					}
+				?>
 				<div class="row">
 					<div class="col-md-6 col-sm-6 col-xs-12">	
-						<a href="javascript:void(0)" class="mt-10 mb-10 detail-btn">Buy <i class="fa fa-shopping-cart"></i></a>
+						<a href="thank_you.php" class="mt-10 mb-10 detail-btn">Buy <i class="fa fa-shopping-cart"></i></a>
 					</div>
 				</div>
 			<!--	https://www.youtube.com/watch?v=dwH34mR6ZG8		-->

@@ -104,121 +104,145 @@
 ?>
 <html>
 <head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Add Product</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<link rel="stylesheet" href="css/bootstrap.css" />
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
 	<link rel="stylesheet" href="css/font-awesome.css" />
 	<style>
-		.body-container{margin-top:0px !important;}
 		.btn{background-color: #0A2B3D;color:#fff;}
+		.navbar-fixed-top { position: relative;}
 	</style>
 </head>
 <body>
-	 <section>
-        <!-- body content start-->
-        <div class="body-content" >
-			<div class="body-container">
-                	<h1 class="page-title">Add Product<span class="pull-right"><a href="logout.php">Logout</a></span></h1>
-					<hr class="hr-grey-title"></hr>
-                	<div class="clearfix"></div>
-                	<div class="row">
-						<div class="row">
-							<div class="col-md-12">
-							<div class="clearfix"></div>
-							<form class="form-horizontal" action="" enctype="multipart/form-data" role="form"  method="POST">
-								<input type="hidden" value="0" name="submit_type" id="submit_type"/>
-								<small class="pull-right">Fields marked with <span class="form-man">*</span> are mandatory</small><br/>
-								<div class="form-group" id="title_parameters_name">
-									<label for="parameters" class="col-md-2 control-label">
-										Category<span class="form-man">*</span>
-									</label>
-									<div class="col-md-8">
-										<select style="width:100%;" name="category" required>
-										<?php 
-										
-											if (!$link = mysqli_connect('localhost:3306', 'root', '','project')) {
-												echo 'Could not connect to mysql';
-											}
-											$sql    = "select category_id,category_name from tbl_categories;";
-											$result = mysqli_query($link,$sql);
-											while($row = mysqli_fetch_assoc($result)) {
-												echo "<option value='".$row['category_id']."'>".$row['category_name']."</option>";
-											}
-											mysqli_close();
-										?>
-											
-										</select>
-									</div>
-								</div>
-								<div class="form-group" id="title_email_template_name">
-									<label for="email_template" class="col-md-2 control-label">
-										Product Name<span class="form-man">*</span>
-									</label>
-									<div class="col-md-8">
-										<input type="text" class="form-control entity-form" name="product_name" required/>
-									</div>
-								</div>
-								<div class="form-group" id="title_email_body_name">
-									<label for="email_body" class="col-md-2 control-label">
-										Short Description <span class="form-man">*</span>
-									</label>
-									<div class="col-md-8">
-										<textarea type="text" rows="5" class="form-control entity-form" name="short_description" id="short_description" required></textarea>
-										<div class="text-danger" id="email_body_error"></div>
-									</div>
-								</div>
-								<div class="form-group" id="title_email_body_name">
-									<label for="email_body" class="col-md-2 control-label">
-										Detail Description <span class="form-man">*</span>
-									</label>
-									<div class="col-md-8">
-										<textarea type="text" rows="5" class="form-control entity-form" name="full_description" id="full_description" required></textarea>
-										<div class="text-danger" id="email_body_error"></div>
-									</div>
-								</div>
-								<div class="form-group" id="title_parameters_name">
-									<label for="parameters" class="col-md-2 control-label">
-										Cover Image<span class="form-man">*</span>
-									</label>
-									<div class="col-md-8">
-										<input type="file" class="form-control entity-form" name="image" id="image" required/>
-									</div>
-								</div>
-								<div class="form-group" id="title_parameters_name">
-									<label for="parameters" class="col-md-2 control-label">
-										Detail Page Image<span class="form-man">*</span>
-									</label>
-									<div class="col-md-8">
-										<input type="file" class="form-control entity-form" name="dp_image" id="dp_image"/>
-									</div>
-								</div>
-								<div class="form-group" id="title_parameters_name">
-									<label for="parameters" class="col-md-2 control-label">
-										Video File<span class="form-man">*</span>
-									</label>
-									<div class="col-md-8">
-										<input type="file" class="form-control entity-form" name="video" id="video"/>
-									</div>
-								</div>
-								<div class="form-group" id="title_parameters_name">
-									<label for="parameters" class="col-md-2 control-label">
-									
-									</label>
-									<div class="col-md-8">
-										<input type="submit" class="form-control entity-form btn btn-submit" name="add_product" value="Add Product"/>
-									</div>
-								</div>
+	<!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="index.php"><img src="http://www.skilladda.com/assets/images/skilladda_logo180.png" style="width:110px;" /></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+				<ul class="nav navbar-nav">
+					<li><a href="add_category.php">Add Category</a></li>
+					<li class="active"><a href="javascript:void(0)">Add Product</a></li>	
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="">
+					<?php 
+						if($_SESSION['userLogin'] == 'LoggedIn'){ ?>
+							<a href="logout.php">Logout <span class="sr-only">(current)</span></a></li>
+						<?php }else{
+						?>
+						<a href="login.php">Login <span class="sr-only">(current)</span></a></li>
+					<?php 
+						}
+					?>
+				</ul>
+			</div>
+		</div>
+    </nav> 
+	
+	<div class="container"> 
+		<div class="row">
+			<div class="col-md-12">
+				<div class="clearfix"></div>
+				<form class="form-horizontal" action="" enctype="multipart/form-data" role="form"  method="POST">
+					<input type="hidden" value="0" name="submit_type" id="submit_type"/>
+					<small class="pull-right">Fields marked with <span class="form-man">*</span> are mandatory</small><br/>
+					<div class="form-group" id="title_parameters_name">
+						<label for="parameters" class="col-md-3 col-sm-4 control-label">
+							Category<span class="form-man">*</span>
+						</label>
+						<div class="col-md-6 col-sm-7">
+							<select style="width:100%;" name="category" required>
+							<?php 
+							
+								if (!$link = mysqli_connect('localhost:3306', 'root', '','project')) {
+									echo 'Could not connect to mysql';
+								}
+								$sql    = "select category_id,category_name from tbl_categories;";
+								$result = mysqli_query($link,$sql);
+								while($row = mysqli_fetch_assoc($result)) {
+									echo "<option value='".$row['category_id']."'>".$row['category_name']."</option>";
+								}
+								mysqli_close();
+							?>
 								
-							</form>
-                		</div>
-                	</div>
+							</select>
+						</div>
+					</div>
+					<div class="form-group" id="title_email_template_name">
+						<label for="email_template" class="col-md-3 col-sm-4 control-label">
+							Product Name<span class="form-man">*</span>
+						</label>
+						<div class="col-md-6 col-sm-7">
+							<input type="text" class="form-control entity-form" name="product_name" required/>
+						</div>
+					</div>
+					<div class="form-group" id="title_email_body_name">
+						<label for="email_body" class="col-md-3 col-sm-4 control-label">
+							Short Description <span class="form-man">*</span>
+						</label>
+						<div class="col-md-6 col-sm-7">
+							<textarea type="text" rows="5" class="form-control entity-form" name="short_description" id="short_description" required></textarea>
+							<div class="text-danger" id="email_body_error"></div>
+						</div>
+					</div>
+					<div class="form-group" id="title_email_body_name">
+						<label for="email_body" class="col-md-3 col-sm-4 control-label">
+							Detail Description <span class="form-man">*</span>
+						</label>
+						<div class="col-md-6 col-sm-7">
+							<textarea type="text" rows="5" class="form-control entity-form" name="full_description" id="full_description" required></textarea>
+							<div class="text-danger" id="email_body_error"></div>
+						</div>
+					</div>
+					<div class="form-group" id="title_parameters_name">
+						<label for="parameters" class="col-md-3 col-sm-4 control-label">
+							Cover Image<span class="form-man">*</span>
+						</label>
+						<div class="col-md-6 col-sm-7">
+							<input type="file" class="form-control entity-form" name="image" id="image" required/>
+						</div>
+					</div>
+					<div class="form-group" id="title_parameters_name">
+						<label for="parameters" class="col-md-3 col-sm-4 control-label">
+							Detail Page Image<span class="form-man">*</span>
+						</label>
+						<div class="col-md-6 col-sm-7">
+							<input type="file" class="form-control entity-form" name="dp_image" id="dp_image"/>
+						</div>
+					</div>
+					<div class="form-group" id="title_parameters_name">
+						<label for="parameters" class="col-md-3 col-sm-4 control-label">
+							Video File<span class="form-man">*</span>
+						</label>
+						<div class="col-md-6 col-sm-7">
+							<input type="file" class="form-control entity-form" name="video" id="video"/>
+						</div>
+					</div>
+					<div class="form-group" id="title_parameters_name">
+						<label for="parameters" class="col-md-6 col-sm-7 control-label">
+						
+						</label>
+						<div class="col-md-3 col-sm-4">
+							<input type="submit" class="form-control entity-form btn btn-submit" name="add_product" value="Add Product"/>
+						</div>
 					</div>
 					
-                </div><!-- col end -->
-                </div><!-- row end -->
-        </div>
-        <!-- body content end-->
-    </section>
+				</form>
+			</div>
+		</div>
+	</div>
+	
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 	<script>

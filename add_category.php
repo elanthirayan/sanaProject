@@ -29,58 +29,81 @@
 ?>
 <html>
 <head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Add Category</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<link rel="stylesheet" href="css/bootstrap.css" />
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
 	<link rel="stylesheet" href="css/font-awesome.css" />
 	<style>
-		.body-container{margin-top:0px !important;}
 		.btn{background-color: #0A2B3D;color:#fff;}
+		.navbar-fixed-top { position: relative;}
 	</style>
 </head>
 <body>
-	 <section>
-        <!-- body content start-->
-        <div class="body-content" >
-			<div class="body-container">
-                	<h1 class="page-title">Add Category<span class="pull-right"><a href="logout.php">Logout</a></span></h1>
-					<hr ></hr>
-                	<div class="clearfix"></div>
-                	<div class="row">
-						<div class="row">
-							<div class="col-md-12">
-							<div class="clearfix"></div>
-							<form class="form-horizontal" action="" enctype="multipart/form-data" role="form"  method="POST">
-								<input type="hidden" value="0" name="submit_type" id="submit_type"/>
-								<small class="pull-right">Fields marked with <span class="form-man">*</span> are mandatory</small><br/>
-								<div class="form-group" id="title_email_template_name">
-									<label for="email_template" class="col-md-2 control-label">
-										Category Name<span class="form-man">*</span>
-									</label>
-									<div class="col-md-8">
-										<input type="text" class="form-control entity-form" name="category_name" required/>
-									</div>
-								</div>
-								<div class="form-group" id="title_parameters_name">
-									<label for="parameters" class="col-md-2 control-label">
-									
-									</label>
-									<div class="col-md-8">
-										<input type="submit" class="form-control entity-form btn btn-submit" name="add_category" value="Add Category"/>
-									</div>
-								</div>
-								
-							</form>
-                		</div>
+	<!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="index.php"><img src="http://www.skilladda.com/assets/images/skilladda_logo180.png" style="width:110px;" /></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="javascript:void(0)">Add Category</a></li>
+					<li><a href="add_product.php">Add Product</a></li>	
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="">
+					<?php 
+						if($_SESSION['userLogin'] == 'LoggedIn'){ ?>
+							<a href="logout.php">Logout <span class="sr-only">(current)</span></a></li>
+						<?php }else{
+						?>
+						<a href="login.php">Login <span class="sr-only">(current)</span></a></li>
+					<?php 
+						}
+					?>
+				</ul>
+			</div>
+		</div>
+    </nav> 
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="clearfix"></div>
+				<form class="form-horizontal" action="" enctype="multipart/form-data" role="form"  method="POST">
+					<input type="hidden" value="0" name="submit_type" id="submit_type"/>
+					<small class="pull-right">Fields marked with <span class="form-man">*</span> are mandatory</small><br/>
+					<div class="form-group" id="title_email_template_name">
+						<label for="email_template" class="col-md-2 col-sm-3 control-label">
+							Category Name<span class="form-man">*</span>
+						</label>
+						<div class="col-md-6 col-sm-6">
+							<input type="text" class="form-control entity-form" name="category_name" required/>
+						</div>
+					</div>
+					<div class="form-group" id="title_parameters_name">
+						<label for="parameters" class="col-md-5 col-sm-5 control-label">
+						
+						</label>
+						<div class="col-md-3 col-sm-4">
+							<input type="submit" class="form-control entity-form btn btn-submit" name="add_category" value="Add Category"/>
 						</div>
 					</div>
 					
-                </div><!-- col end -->
-                </div><!-- row end -->
-        </div>
-        <!-- body content end-->
-    </section>
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+				</form>
+			</div>
+		</div>
+	</div>
+					
 	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 </body>
 </html>
