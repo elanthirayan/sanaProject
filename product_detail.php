@@ -1,5 +1,21 @@
 <!DOCTYPE html>
-<?php ?>
+<?php 
+session_start();
+$product_id=$_GET['pid'];
+$link = mysqli_connect('localhost:3306', 'root', '', 'project');
+if (!$link) {
+	echo 'Could not connect to mysql';
+}
+$sql    = "select product_id,product_name,product_short_desc,product_full_desc,image_url,dp_imageUrl,video_url,category_id from tbl_product where product_id='".$product_id."'";
+$result = mysqli_query($link, $sql);
+while($row = mysqli_fetch_assoc($result)) {
+	$product_name=$row['product_name'];
+	$product_full_desc=$row['product_full_desc'];
+	$image_url=$row['image_url'];
+	$dp_imageUrl=$row['dp_imageUrl'];
+	$video_url=$row['video_url'];
+}
+?>
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
@@ -35,25 +51,25 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Category 1</a></li>
-					<li><a href="#about">Category 2</a></li>
-					<li><a href="#contact">Category 3</a></li>
-					<li><a href="#contact">Category 4</a></li>
-					<!--li class="dropdown">
-					  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-					  <ul class="dropdown-menu">
-						<li><a href="#">Action</a></li>
-						<li><a href="#">Another action</a></li>
-						<li><a href="#">Something else here</a></li>
-						<li role="separator" class="divider"></li>
-						<li class="dropdown-header">Nav header</li>
-						<li><a href="#">Separated link</a></li>
-						<li><a href="#">One more separated link</a></li>
-					  </ul>
-					</li-->
+					<?php 
+						$sql    = "select category_id,category_name from tbl_categories";
+						$result = mysqli_query($link, $sql);
+						while($row = mysqli_fetch_assoc($result)) {
+							echo '<li><a href="category_page.php?cid='.$row['category_id'].'">'.$row['category_name'].'</a></li>';
+						}
+					?>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li class=""><a href="#">Login <span class="sr-only">(current)</span></a></li>
+					<li class="">
+					<?php 
+						if($_SESSION['userLogin'] == 'LoggedIn'){ ?>
+							<a href="logout.php">Logout <span class="sr-only">(current)</span></a></li>
+						<?php }else{
+						?>
+						<a href="login.php">Login <span class="sr-only">(current)</span></a></li>
+					<?php 
+						}
+					?>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -62,12 +78,12 @@
     <div class="container">
 		<div class="row">
 			<div class="col-md-12 col-sm-12 col-xs-12">	
-				<div class="category-name">Yuvraj Singh's six 6s in an over.</div>
+				<div class="category-name"><?php echo $product_name; ?></div>
 				<hr class="br-grey mt-5"></hr>
 			</div>
 			<div class="col-md-5 col-sm-6 col-xs-12">
 				<video width="320" height="240" controls>
-					<source src="https://www.youtube.com/watch?v=dwH34mR6ZG8" type="video/mp4">
+					<source src="<?php echo "video/".$video_url;?>" type="video/mp4">
 					<source src="movie.ogg" type="video/ogg">
 					Your browser does not support the video tag.
 				</video>
@@ -76,9 +92,7 @@
 			</div>
 			<div class="col-md-7 col-sm-6 col-xs-12">
 				<div class="text-head">
-					Indian batsman Yuvraj Singh is known to be one of the most flamboyant cricketers in the modern era. Yuvraj went all guns blazing when he sent Stuart Broad for six ruthless maximums in an over during the World T20 in 2007 against England. A somewhat ugly spat with Andrew Flintoff in that very game spurred Yuvi on as he dispatched the England fast bowler to almost all corners of the park.
-					<br/>
-					Yuvraj amazed cricketing fans worldwide with his six sixes in an over as he became the second batsman in international cricket and the fourth overall to reach this feat. India went on to win the World T20 that year thanks to some other similarly brilliant knocks by Yuvi.
+						<?php echo $product_full_desc;?>
 				</div>
 			</div>
 		</div>

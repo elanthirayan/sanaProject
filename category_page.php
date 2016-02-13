@@ -1,5 +1,17 @@
 <!DOCTYPE html>
-<?php ?>
+<?php 
+	session_start();
+	$category_id='';
+	$cid=0;
+	if(isset($_GET['cid'])){
+		$category_id=$_GET['cid'];
+		$cid=1;
+	}
+	$link = mysqli_connect('localhost:3306', 'root', '', 'project');
+	if (!$link) {
+		echo 'Could not connect to mysql';
+	}
+?>
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
@@ -35,25 +47,32 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Category 1</a></li>
-					<li><a href="#about">Category 2</a></li>
-					<li><a href="#contact">Category 3</a></li>
-					<li><a href="#contact">Category 4</a></li>
-					<!--li class="dropdown">
-					  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-					  <ul class="dropdown-menu">
-						<li><a href="#">Action</a></li>
-						<li><a href="#">Another action</a></li>
-						<li><a href="#">Something else here</a></li>
-						<li role="separator" class="divider"></li>
-						<li class="dropdown-header">Nav header</li>
-						<li><a href="#">Separated link</a></li>
-						<li><a href="#">One more separated link</a></li>
-					  </ul>
-					</li-->
+				<?php 
+						$sql    = "select category_id,category_name from tbl_categories";
+						$result = mysqli_query($link, $sql);
+						while($row = mysqli_fetch_assoc($result)) {
+							$ac='';
+							if($category_id==''){
+								$category_id=$row['category_id'];
+							}
+							if($category_id==$row['category_id']){
+								$ac='active';
+							}
+							echo '<li class="'.$ac.'"><a href="category_page.php?cid='.$row['category_id'].'">'.$row['category_name'].'</a></li>';
+						}
+					?>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li class=""><a href="#">Login <span class="sr-only">(current)</span></a></li>
+					<li class="">
+					<?php 
+						if($_SESSION['userLogin'] == 'LoggedIn'){ ?>
+							<a href="logout.php">Logout <span class="sr-only">(current)</span></a></li>
+						<?php }else{
+						?>
+						<a href="login.php">Login <span class="sr-only">(current)</span></a></li>
+					<?php 
+						}
+					?>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -67,51 +86,25 @@
 			</div>
 			<div class="col-md-12 col-sm-12 col-xs-12">
 				<div class="row">
-					<div class="col-md-3 col-sm-4 col-xs-12">
-						<div class="product-box">
-							<div class="text-center">
-								<img src="images/pic1.jpg" class="product-img" />
+					<?php 
+						$sql    = "select product_id,product_name,product_short_desc,product_full_desc,image_url,dp_imageUrl,video_url,category_id from tbl_product where category_id='".$category_id."'";
+						$result = mysqli_query($link, $sql);
+						while($row = mysqli_fetch_assoc($result)) {
+							?>
+							<div class="col-md-3 col-sm-4 col-xs-12">
+								<div class="product-box">
+									<div class="text-center">
+										<img src="<?php echo "images/".$row['image_url']; ?>" class="product-img" />
+									</div>
+									<div class="text-head">
+										<?php echo $row['product_name']; ?>
+									</div>
+									<a href="<?php echo 'product_detail.php?pid='.$row['product_id']; ?>" class="detail-btn">Know More <i class="fa fa-arrow-right"></i></a>
+								</div>
 							</div>
-							<div class="text-head">
-								Network Engineer Network Engineer Network Engineer
-							</div>
-							<a href="javascript:void(0)" class="detail-btn">Know More <i class="fa fa-arrow-right"></i></a>
-						</div>
-						
-					</div>
-					<div class="col-md-3 col-sm-4 col-xs-12">
-						<div class="product-box">
-							<div class="text-center">
-								<img src="images/pic2.jpg" class="product-img" />
-							</div>
-							<div class="text-head">
-								Network Engineer 
-							</div>
-							<a href="javascript:void(0)" class="detail-btn">Know More <i class="fa fa-arrow-right"></i></a>
-						</div>
-					</div>
-					<div class="col-md-3 col-sm-4 col-xs-12">
-						<div class="product-box">
-							<div class="text-center">
-								<img src="images/pic3.jpg" class="product-img" />
-							</div>
-							<div class="text-head">
-								Network Engineer 
-							</div>
-							<a href="javascript:void(0)" class="detail-btn">Know More <i class="fa fa-arrow-right"></i></a>
-						</div>
-					</div>
-					<div class="col-md-3 col-sm-4 col-xs-12">
-						<div class="product-box">
-							<div class="text-center">
-								<img src="images/pic4.jpg" class="product-img" />
-							</div>
-							<div class="text-head">
-								Network Engineer 
-							</div>
-							<a href="javascript:void(0)" class="detail-btn">Know More <i class="fa fa-arrow-right"></i></a>
-						</div>
-					</div>
+						<?php
+						}
+					?>
 				</div>
 			</div>
 		</div>

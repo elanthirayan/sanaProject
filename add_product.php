@@ -4,13 +4,6 @@
 	if($_SESSION['userLogin'] != 'LoggedIn'){
 		header('Location: login.php');
 	}
-	 if (!$link = mysqli_connect('localhost:3306', 'root', '','project')) {
-				echo 'Could not connect to mysql';
-			}
-			$sql    = "select * from tbl_product;";
-			$result = mysqli_query($link,$sql);
-			$row=mysqli_fetch_assoc($result);
-			var_dump($row);
 	if(isset($_POST['add_product'])){
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		  $product_name = $_POST["product_name"];
@@ -65,7 +58,7 @@
 				 move_uploaded_file($file_tmp,"images/".$file_name);
 				 $dp_imageUrl = $file_name;
 			  }else{
-				  echo "Image Not Uploaded";
+				  echo "Detail Image Not Uploaded";
 			  }
 		  }
 		  if(isset($_FILES['video'])){
@@ -196,7 +189,7 @@
 										Detail Page Image<span class="form-man">*</span>
 									</label>
 									<div class="col-md-8">
-										<input type="file" class="form-control entity-form" name="dp_image" id="dp_image" required/>
+										<input type="file" class="form-control entity-form" name="dp_image" id="dp_image"/>
 									</div>
 								</div>
 								<div class="form-group" id="title_parameters_name">
@@ -204,7 +197,7 @@
 										Video File<span class="form-man">*</span>
 									</label>
 									<div class="col-md-8">
-										<input type="file" class="form-control entity-form" name="video" id="video" required/>
+										<input type="file" class="form-control entity-form" name="video" id="video"/>
 									</div>
 								</div>
 								<div class="form-group" id="title_parameters_name">
