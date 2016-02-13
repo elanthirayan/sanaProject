@@ -31,7 +31,7 @@
       if(empty($errors)==true){
          move_uploaded_file($file_tmp,"images/".$file_name);
 			$i=0;
-			if (!$link = mysqli_connect('us-cdbr-iron-east-03.cleardb.net:3306', 'be5f730e58f54c', '67f3f3ca','ad_0789913ab89fe55')) {
+			if (!$link = mysqli_connect('localhost:3306', 'root', '','product')) {
 				echo 'Could not connect to mysql';
 			}
 			$imageLink=$file_name;
@@ -54,7 +54,7 @@
 ?>
 <html>
 <head>
-	<title>News Update</title>
+	<title>Add Product</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<link rel="stylesheet" href="css/bootstrap.css" />
 	<link rel="stylesheet" href="css/font-awesome.css" />
@@ -68,25 +68,10 @@
         <!-- body content start-->
         <div class="body-content" >
 			<div class="body-container">
-                	<h1 class="page-title">News Update<span class="pull-right"><a href="logout.php">Logout</a></span></h1>
+                	<h1 class="page-title">Add Product<span class="pull-right"><a href="logout.php">Logout</a></span></h1>
 					<hr class="hr-grey-title"></hr>
                 	<div class="clearfix"></div>
                 	<div class="row">
-					<div class="tab_view">
-						<div class="tab-menu"> <!-- required for floating -->
-							<!-- Nav tabs -->
-							<ul class="nav nav-tabs tabs-left">
-								<li role="presentation" class="">
-									<a href="/" ><i class="icon-normal wh-left-arrow"></i> <span class="hidden-xs"> Back</span></a>
-								</li>
-								<li role="presentation" class="active" >
-									<a href="" ><i class="icon-normal wh-summary"></i> <span class="hidden-xs">Update News</span> <span class="unselected-circle"><span class="selected-circle"></span></span></a>
-								</li>
-							</ul>
-						</div>
-
-						<div class="tab-content">
-						<div class="content_summary row-border">
 						<div class="row">
 							<div class="col-md-12">
 							<div class="clearfix"></div>
@@ -95,7 +80,7 @@
 								<small class="pull-right">Fields marked with <span class="form-man">*</span> are mandatory</small><br/>
 								<div class="form-group" id="title_email_template_name">
 									<label for="email_template" class="col-md-2 control-label">
-										News HeadLine<span class="form-man">*</span>
+										Product Name<span class="form-man">*</span>
 									</label>
 									<div class="col-md-8">
 										<input type="text" class="form-control entity-form" name="name_headLine" required/>
@@ -104,20 +89,57 @@
 								</div>
 								<div class="form-group" id="title_email_body_name">
 									<label for="email_body" class="col-md-2 control-label">
-										Description <span class="form-man">*</span>
+										Short Description <span class="form-man">*</span>
 									</label>
 									<div class="col-md-8">
-										<textarea type="text" rows="5" class="form-control entity-form" name="description" id="description" required></textarea>
+										<textarea type="text" rows="5" class="form-control entity-form" name="short_description" id="short_description" required></textarea>
+										<div class="text-danger" id="email_body_error"></div>
+									</div>
+								</div>
+								<div class="form-group" id="title_email_body_name">
+									<label for="email_body" class="col-md-2 control-label">
+										Full Description <span class="form-man">*</span>
+									</label>
+									<div class="col-md-8">
+										<textarea type="text" rows="5" class="form-control entity-form" name="full_description" id="full_description" required></textarea>
 										<div class="text-danger" id="email_body_error"></div>
 									</div>
 								</div>
 								<div class="form-group" id="title_parameters_name">
 									<label for="parameters" class="col-md-2 control-label">
-										File<span class="form-man">*</span>
+										Image File<span class="form-man">*</span>
 									</label>
 									<div class="col-md-8">
 										<input type="file" class="form-control entity-form" name="image" id="image" required/>
-										<div class="text-danger" id="parameters_error"></div>
+									</div>
+								</div>
+								<div class="form-group" id="title_parameters_name">
+									<label for="parameters" class="col-md-2 control-label">
+										Video File<span class="form-man">*</span>
+									</label>
+									<div class="col-md-8">
+										<input type="file" class="form-control entity-form" name="video" id="video" required/>
+									</div>
+								</div>
+								<div class="form-group" id="title_parameters_name">
+									<label for="parameters" class="col-md-2 control-label">
+										Category<span class="form-man">*</span>
+									</label>
+									<div class="col-md-8">
+										<select name="category" required>
+										<?php 
+										
+											if (!$link = mysqli_connect('localhost:3306', 'root', '','project')) {
+												echo 'Could not connect to mysql';
+											}
+											$sql    = "select category_id,category_name from tbl_categories;";
+											$result = mysqli_query($link,$sql);
+											while($row = mysqli_fetch_assoc($result)) {
+												echo "<option value='".$row['category_id']."'>".$row['category_name']."</option>";
+											}
+										?>
+											
+										</select>
 									</div>
 								</div>
 								<div class="form-group" id="title_parameters_name">
@@ -125,15 +147,12 @@
 									
 									</label>
 									<div class="col-md-8">
-										<input type="submit" class="form-control entity-form btn btn-submit" name="submitButton" value="Publish News"/>
+										<input type="submit" class="form-control entity-form btn btn-submit" name="submitButton" value="Add Product"/>
 									</div>
 								</div>
 								
 							</form>
                 		</div>
-						</div>
-						</div>
-						</div>
                 	</div>
 					</div>
 					

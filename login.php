@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <?php
 	session_start();
+	if(isset($_SESSION['userLogin'])){
+		if($_SESSION['userLogin'] == 'LoggedIn'){
+			header('Location: add_category.php');
+		}
+	}
 	if(isset($_POST['sign_in'])){
 		$i=0;
 		$username=$_POST['username'];
@@ -15,18 +20,12 @@
 			if($row['username']==$username && $row['password']==$password){
 				$i=1;
 				$_SESSION['userLogin'] = "LoggedIn";
-				header('Location: upload.php');
+				header('Location: add_category.php');
 			}
 		}
 		if($i==0){
 			echo "authentication failed";
 		}
-		if(isset($_SESSION['userLogin'])){
-			if($_SESSION['userLogin'] == 'LoggedIn'){
-				header('Location: upload.php');
-			}
-		}
-		
 	}
 ?>
 <html>
