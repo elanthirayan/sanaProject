@@ -82,12 +82,16 @@ while($row = mysqli_fetch_assoc($result)) {
 				<hr class="br-grey mt-5"></hr>
 			</div>
 			<div class="col-md-5 col-sm-6 col-xs-12">
-				<video width="320" height="240" controls>
+				<img src="images/pic1.jpg" class="product-img mb-10" style="height:auto" />
+				<video class="mb-10" style="width:100%; height:auto;" controls>
 					<source src="<?php echo "video/".$video_url;?>" type="video/mp4">
-					<source src="movie.ogg" type="video/ogg">
 					Your browser does not support the video tag.
 				</video>
-				
+				<div class="row">
+					<div class="col-md-6 col-sm-6 col-xs-12">	
+						<a href="javascript:void(0)" class="mt-10 mb-10 detail-btn">Buy <i class="fa fa-shopping-cart"></i></a>
+					</div>
+				</div>
 			<!--	https://www.youtube.com/watch?v=dwH34mR6ZG8		-->
 			</div>
 			<div class="col-md-7 col-sm-6 col-xs-12">

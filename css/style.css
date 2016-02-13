@@ -3,10 +3,14 @@
 .category-name{font-size:22px; margin-top:15px;}
 .product-box{border:1px solid #f7f7f7; padding:10px; margin-bottom:10px;}
 .product-img{width:100%; height:160px;}
-.text-head{height: 50px; font-size: 15px; display: table-cell; vertical-align: middle;}
+.text-head{height: 50px; font-size: 15px; display: table-cell; vertical-align: middle; text-align:justify;}
 .mt-0{margin-top:0px;}
 .mt-5{margin-top:5px;}
+.mt-10{margin-top:10px;}
+.mt-20{margin-top:20px;}
+.mt-30{margin-top:30px;}
 .mb-5{margin-bottom:5px;}
+.mb-10{margin-bottom:10px;}
 .br-grey{border: 1px solid #dfdfdf;}
 .detail-btn{width: 100%; display: block; height: 30px; text-align: center; padding: 5px; background-color: #309E30; color: white !Important; text-decoration: none !important; border-radius: 3px; margin-top:3px;}
 .detail-btn>i{margin-left:5px;}
