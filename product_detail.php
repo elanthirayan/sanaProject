@@ -25,7 +25,7 @@ while($row = mysqli_fetch_assoc($result)) {
 		<meta name="description" content="">
 		<meta name="author" content="">
 		
-		<title>Category Detail Page</title>
+		<title>Product Detail Page</title>
 
 		<!-- Bootstrap core CSS -->
 		<link href="css/bootstrap.min.css" rel="stylesheet">

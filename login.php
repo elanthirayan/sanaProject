@@ -30,7 +30,7 @@
 ?>
 <html>
 <head>
-	<title>News Login</title>
+	<title>Login</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<link rel="stylesheet" href="style.css" />
 	<link rel="stylesheet" href="css/bootstrap.min.css" />

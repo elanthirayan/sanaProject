@@ -21,7 +21,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 		
-		<title>Category Page</title>
+		<title>Product List</title>
 
 		<!-- Bootstrap core CSS -->
 		<link href="css/bootstrap.min.css" rel="stylesheet">
