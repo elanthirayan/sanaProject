@@ -47,6 +47,7 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
 				<ul class="nav navbar-nav">
+					<li><a href="index.php">Home</a></li>
 				<?php 
 						$sql    = "select category_id,category_name from tbl_categories";
 						$result = mysqli_query($link, $sql);
@@ -65,12 +66,17 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li class="">
 					<?php 
-						if($_SESSION['userLogin'] == 'LoggedIn'){ ?>
-							<a href="logout.php">Logout <span class="sr-only">(current)</span></a></li>
-						<?php }else{
-						?>
-						<a href="login.php">Login <span class="sr-only">(current)</span></a></li>
-					<?php 
+						if(isset($_SESSION['userLogin'])){
+							if($_SESSION['userLogin'] == 'LoggedIn'){ ?>
+								<a href="logout.php">Logout <span class="sr-only">(current)</span></a></li>
+							<?php }else{
+							?>
+							<a href="login.php">Login <span class="sr-only">(current)</span></a></li>
+						<?php 
+							}
+						}else{ ?>
+								<a href="login.php">Login <span class="sr-only">(current)</span></a></li>
+						<?php 
 						}
 					?>
 				</ul>

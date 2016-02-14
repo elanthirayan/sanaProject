@@ -10,6 +10,8 @@
 		  $short_description = $_POST["short_description"];
 		  $category = $_POST["category"];
 		  $full_description = $_POST["full_description"];
+		  $full_description=str_replace("'","\\'",str_replace("\\","\\\\",($full_description)));
+		  $short_description=str_replace("'","\\'",str_replace("\\","\\\\",($short_description)));
 		  $imageUrl = '';
 		  $videoUrl = '';
 		  $dp_imageUrl = '';

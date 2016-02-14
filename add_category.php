@@ -9,12 +9,14 @@
 
 			if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			  $categoryName = $_POST["category_name"];
+			  $category_description = $_POST["category_description"];
+			  $category_description=str_replace("'","\\'",str_replace("\\","\\\\",($category_description)));
 			}
 			$i=0;
 			if (!$link = mysqli_connect('localhost:3306', 'root', '','project')) {
 				echo 'Could not connect to mysql';
 			}
-			$sql    = "insert into tbl_categories(category_id,category_name) values(uuid(),'".$categoryName."');";
+			$sql    = "insert into tbl_categories(category_id,category_name,description) values(uuid(),'".$categoryName."','".$category_description."');";
 			$result = mysqli_query($link,$sql);
 
 			if (!$result) {
@@ -87,6 +89,14 @@
 						</label>
 						<div class="col-md-6 col-sm-6">
 							<input type="text" class="form-control entity-form" name="category_name" required/>
+						</div>
+					</div>
+					<div class="form-group" id="title_email_template_name">
+						<label for="email_template" class="col-md-2 col-sm-3 control-label">
+							Category Description<span class="form-man">*</span>
+						</label>
+						<div class="col-md-6 col-sm-6">
+							<textarea class="form-control entity-form" name="category_description" required></textarea>
 						</div>
 					</div>
 					<div class="form-group" id="title_parameters_name">

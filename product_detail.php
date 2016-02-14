@@ -51,6 +51,7 @@ while($row = mysqli_fetch_assoc($result)) {
 			</div>
 			<div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
 				<ul class="nav navbar-nav">
+					<li><a href="index.php">Home</a></li>
 					<?php 
 						$sql    = "select category_id,category_name from tbl_categories";
 						$result = mysqli_query($link, $sql);
