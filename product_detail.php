@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <?php 
+include("db.php");
 session_start();
 $product_id=$_GET['pid'];
-$link = mysqli_connect('localhost:3306', 'root', '', 'project');
-if (!$link) {
-	echo 'Could not connect to mysql';
-}
+
 $sql    = "select product_id,product_name,product_short_desc,product_full_desc,image_url,dp_imageUrl,video_url,category_id from tbl_product where product_id='".$product_id."'";
 $result = mysqli_query($link, $sql);
 while($row = mysqli_fetch_assoc($result)) {
@@ -47,7 +45,7 @@ while($row = mysqli_fetch_assoc($result)) {
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index.php"><img src="http://www.skilladda.com/assets/images/skilladda_logo180.png" style="width:110px;" /></a>
+				<a class="navbar-brand" href="index.php">SANA COLLEGE</a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
 				<ul class="nav navbar-nav">

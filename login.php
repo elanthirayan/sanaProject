@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
 	session_start();
+	include("db.php");
 	if(isset($_SESSION['userLogin'])){
 		if($_SESSION['userLogin'] == 'LoggedIn'){
 			header('Location: add_category.php');
@@ -10,10 +11,6 @@
 		$i=0;
 		$username=$_POST['username'];
 		$password=$_POST['password'];
-		$link = mysqli_connect('localhost:3306', 'root', '', 'project');
-		if (!$link) {
-			echo 'Could not connect to mysql';
-		}
 		$sql    = "select id,username,password from tbl_login";
 		$result = mysqli_query($link, $sql);
 		while($row = mysqli_fetch_assoc($result)) {
@@ -48,7 +45,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index.php"><img src="http://www.skilladda.com/assets/images/skilladda_logo180.png" style="width:110px;" /></a>
+				<a class="navbar-brand" href="index.php">SANA COLLEGE</a>
 			</div>
 			
 		</div>
@@ -78,9 +75,6 @@
 						<div class="form-group">
 							<input type="submit" name="sign_in" style="background-color:#32A7B3 !important;" class="btn btn-lg bg_dark_purple btn-launch" id="sign_in" value="Login">
 						</div>
-						<!--<div class="form-group">
-							<a href="javascript:void(0);" id="show_forgot_password">Forgot Password ?</a> Click here to reset password
-						</div>-->
 				</form>
 			</div>
 			<div class="col-md-4">

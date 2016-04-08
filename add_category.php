@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+include("db.php");
 	session_start();
 	if($_SESSION['userLogin'] != 'LoggedIn'){
 		header('Location: login.php');
@@ -13,9 +14,6 @@
 			  $category_description=str_replace("'","\\'",str_replace("\\","\\\\",($category_description)));
 			}
 			$i=0;
-			if (!$link = mysqli_connect('localhost:3306', 'root', '','project')) {
-				echo 'Could not connect to mysql';
-			}
 			$sql    = "insert into tbl_categories(category_id,category_name,description) values(uuid(),'".$categoryName."','".$category_description."');";
 			$result = mysqli_query($link,$sql);
 
@@ -54,7 +52,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index.php"><img src="http://www.skilladda.com/assets/images/skilladda_logo180.png" style="width:110px;" /></a>
+				<a class="navbar-brand" href="index.php">SANA COLLEGE</a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
 				<ul class="nav navbar-nav">

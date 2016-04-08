@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <?php 
+	include("db.php");
 	session_start();
 	$category_id='';
 	$cid=0;
 	if(isset($_GET['cid'])){
 		$category_id=$_GET['cid'];
 		$cid=1;
-	}
-	$link = mysqli_connect('localhost:3306', 'root', '', 'project');
-	if (!$link) {
-		echo 'Could not connect to mysql';
 	}
 ?>
 <html lang="en">
@@ -39,7 +36,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index.php"><img src="http://www.skilladda.com/assets/images/skilladda_logo180.png" style="width:110px;" /></a>
+				<a class="navbar-brand" href="index.php">SANA COLLEGE</a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
 				<ul class="nav navbar-nav">
@@ -77,7 +74,7 @@
 			</div><!--/.nav-collapse -->
 		</div>
     </nav>
-	<header class="intro-header" style="margin-top:-20px; background-image: url('http://blackrockdigital.github.io/startbootstrap-clean-blog/img/home-bg.jpg')">
+	<header class="intro-header" style="margin-top:-20px; background-image: url('images/home-bg.jpg')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -150,63 +147,5 @@
 			<?php
 			}
 		?>
-	
-	<!--<header class="intro-header" style="background-color:#fff;">
-        <div class="container">
-            <div class="row">
-				<center style="padding-top:15px;">
-					<div class="box">
-						<h2 class="text-center"><strong>Times of India</strong>
-						</h2>
-						<h5 class="text-center"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc placerat diam quis nisl vestibulum dignissim. In hac habitasse platea dictumst. Interdum et malesuada fames ac ante ipsum primis in faucibus.</span>
-						</h5>
-					</div>
-				</center>		
-				<center>
-					<div class="box-btn">
-						<a href="" class="detail-btn">Know More <i class="fa fa-arrow-right"></i></a>
-					</div> 
-				</center>
-			</div>
-        </div>
-    </header> 
-	<header class="intro-header" style="background-color:#000;">
-        <div class="container">
-            <div class="row">
-				<center style="padding-top:15px;">
-					<div class="box">
-						<h2 class="text-center"><strong class="txt_white">Hills</strong>
-						</h2>
-						<h5 class="text-center"><span class="txt_white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc placerat diam quis nisl vestibulum dignissim. In hac habitasse platea dictumst. Interdum et malesuada fames ac ante ipsum primis in faucibus.</span>
-						</h5>
-					</div>
-				</center>		
-				<center>
-					<div class="box-btn">
-						<a href="" class="detail-btn">Know More <i class="fa fa-arrow-right"></i></a>
-					</div> 
-				</center>
-			</div>
-        </div>
-    </header>
-	<header class="intro-header" style="background-color:#fff;">
-        <div class="container">
-            <div class="row">
-				<center style="padding-top:15px;">
-					<div class="box">
-						<h2 class="text-center"><strong>Times of India</strong>
-						</h2>
-						<h5 class="text-center"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc placerat diam quis nisl vestibulum dignissim. In hac habitasse platea dictumst. Interdum et malesuada fames ac ante ipsum primis in faucibus.</span>
-						</h5>
-					</div>
-				</center>		
-				<center>
-					<div class="box-btn">
-						<a href="" class="detail-btn">Know More <i class="fa fa-arrow-right"></i></a>
-					</div> 
-				</center>
-			</div>
-        </div>
-    </header> -->
 </body>
 </html>

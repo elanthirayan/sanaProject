@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+	include("db.php");
 	session_start();
 	if($_SESSION['userLogin'] != 'LoggedIn'){
 		header('Location: login.php');
@@ -87,9 +88,6 @@
 				  echo "Video Not Uploaded";
 			  }
 		  }
-		  if (!$link = mysqli_connect('localhost:3306', 'root', '','project')) {
-				echo 'Could not connect to mysql';
-			}
 			$sql    = "insert into tbl_product(product_id,product_name,product_short_desc,product_full_desc,image_url,dp_imageUrl,video_url,category_id) values(uuid(),'".$product_name."','".$short_description."','".$full_description."','".$imageUrl."','".$dp_imageUrl."','".$videoUrl."','".$category."');";
 			$result = mysqli_query($link,$sql);
 
@@ -129,7 +127,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index.php"><img src="http://www.skilladda.com/assets/images/skilladda_logo180.png" style="width:110px;" /></a>
+				<a class="navbar-brand" href="index.php">SANA COLLEGE</a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
 				<ul class="nav navbar-nav">
@@ -167,9 +165,6 @@
 							<select style="width:100%;" name="category" required>
 							<?php 
 							
-								if (!$link = mysqli_connect('localhost:3306', 'root', '','project')) {
-									echo 'Could not connect to mysql';
-								}
 								$sql    = "select category_id,category_name from tbl_categories;";
 								$result = mysqli_query($link,$sql);
 								while($row = mysqli_fetch_assoc($result)) {
@@ -247,25 +242,5 @@
 	
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-	<script>
-		
-		$("#sign_in").click(function(){
-			$(".text-danger").html('');
-			var error=0;
-			var userName =$("#username").val();
-			var userPassword =$("#password").val();
-			if(userName==''){
-				$("#username_error").html("Please enter user name");
-				error++;
-			}
-			if(userPassword==''){
-				$("#password_error").html("Please enter password");
-				error++;
-			}
-			if(error==0){
-				
-			}
-		});
-	</script>
 </body>
 </html>

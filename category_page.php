@@ -1,15 +1,12 @@
 <!DOCTYPE html>
-<?php 
+<?php
+	include("db.php");
 	session_start();
 	$category_id='';
 	$cid=0;
 	if(isset($_GET['cid'])){
 		$category_id=$_GET['cid'];
 		$cid=1;
-	}
-	$link = mysqli_connect('localhost:3306', 'root', '', 'project');
-	if (!$link) {
-		echo 'Could not connect to mysql';
 	}
 ?>
 <html lang="en">
@@ -43,12 +40,13 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index.php"><img src="http://www.skilladda.com/assets/images/skilladda_logo180.png" style="width:110px;" /></a>
+				<a class="navbar-brand" href="index.php">SANA COLLEGE</a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
 				<ul class="nav navbar-nav">
 					<li><a href="index.php">Home</a></li>
 				<?php 
+						$category_name='';
 						$sql    = "select category_id,category_name from tbl_categories";
 						$result = mysqli_query($link, $sql);
 						while($row = mysqli_fetch_assoc($result)) {
@@ -58,6 +56,7 @@
 							}
 							if($category_id==$row['category_id']){
 								$ac='active';
+								$category_name=$row['category_name'];
 							}
 							echo '<li class="'.$ac.'"><a href="category_page.php?cid='.$row['category_id'].'">'.$row['category_name'].'</a></li>';
 						}
@@ -87,7 +86,7 @@
     <div class="container">
 		<div class="row">
 			<div class="col-md-12 col-sm-12 col-xs-12">	
-				<div class="category-name">Weekend Destinations</div>
+				<div class="category-name"><?php echo $category_name;?></div>
 				<hr class="br-grey mt-5"></hr>
 			</div>
 			<div class="col-md-12 col-sm-12 col-xs-12">
